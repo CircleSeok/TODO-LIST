@@ -98,6 +98,7 @@ export default function TodoCreate({ todos, setTodos }) {
     }
 
     setText('');
+    setOpen(false);
   };
 
   const changeHandler = (e) => {
