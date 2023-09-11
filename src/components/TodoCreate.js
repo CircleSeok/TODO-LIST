@@ -96,7 +96,6 @@ export default function TodoCreate({ todos, setTodos }) {
     } else {
       return;
     }
-
     setText('');
     setOpen(false);
   };
@@ -114,7 +113,7 @@ export default function TodoCreate({ todos, setTodos }) {
               onChange={changeHandler}
               value={text}
               autoFocus
-              placeholder='할 일을 입력후, Enter를 누르세요'
+              placeholder='할 일을 입력후, Enter를 누르세요!'
             />
           </InsertForm>
         </InsertFormPositioner>
