@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
+import { useTodoDispatch, useTodoNextId } from '../TodoContext';
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -77,14 +78,10 @@ const Input = styled.input`
 export default function TodoCreate({ todos, setTodos }) {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
-  const nextId = (todos) => {
-    return todos.length + 1;
-  };
-  const newTodo = {
-    id: nextId(todos),
-    text,
-    done: false,
-  };
+
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
+
   const onToggle = () => {
     setOpen(!open);
   };
@@ -92,12 +89,21 @@ export default function TodoCreate({ todos, setTodos }) {
   const addTodo = (e) => {
     e.preventDefault();
     if (text.length !== 0) {
-      setTodos([...todos, newTodo]);
+      dispatch({
+        type: 'ADD',
+        todo: {
+          id: nextId.current,
+          text,
+          done: false,
+        },
+      });
     } else {
       return;
     }
 
     setText('');
+    setOpen(false);
+    nextId.current += 1;
   };
 
   const changeHandler = (e) => {

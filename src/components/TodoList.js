@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Todoitem from './Todoitem';
+import { useTodoState } from '../TodoContext';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -9,8 +10,8 @@ const TodoListBlock = styled.div`
   overflow-y: auto;
 `;
 
-export default function TodoList({ todos, setTodos }) {
-  console.log(todos);
+export default function TodoList() {
+  const todos = useTodoState();
   return (
     <TodoListBlock>
       <div>
@@ -18,9 +19,9 @@ export default function TodoList({ todos, setTodos }) {
           return (
             <Todoitem
               key={todo.id}
-              todo={todo}
-              todos={todos}
-              setTodos={setTodos}
+              text={todo.text}
+              done={todo.done}
+              id={todo.id}
             />
           );
         })}

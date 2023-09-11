@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTodoState } from '../TodoContext';
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -24,7 +25,8 @@ const TodoHeadBlock = styled.div`
     font-weight: bold;
   }
 `;
-export default function TodoHead({ todos }) {
+export default function TodoHead() {
+  const todos = useTodoState();
   const undoneTasks = todos.filter((todo) => !todo.done);
 
   const today = new Date();

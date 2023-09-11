@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import TodoTemplate from './components/TodoTemplate';
 import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
+import { TodoProvider } from './TodoContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -12,40 +13,16 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [todos, setTodos] = useState(initialTodos);
   return (
-    <>
+    <TodoProvider>
       <GlobalStyle />
       <TodoTemplate>
-        <TodoHead todos={todos} />
-        <TodoList todos={todos} setTodos={setTodos} />
-        <TodoCreate todos={todos} setTodos={setTodos} />
+        <TodoHead />
+        <TodoList />
+        <TodoCreate />
       </TodoTemplate>
-    </>
+    </TodoProvider>
   );
 }
 
 export default App;
-
-const initialTodos = [
-  {
-    id: 1,
-    text: '기본 TODOLIST 생성',
-    done: true,
-  },
-  {
-    id: 2,
-    text: 'CONTEXT 사용 TODOLIST 생성',
-    done: true,
-  },
-  {
-    id: 3,
-    text: 'REDUX 사용 TODOLIST 생성',
-    done: false,
-  },
-  {
-    id: 4,
-    text: 'RECOIL 사용 TODOLIST 생성',
-    done: false,
-  },
-];
