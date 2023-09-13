@@ -11,7 +11,7 @@ export const initialTodosAtom = atom({
     {
       id: uuidv4(),
       text: 'CONTEXT 사용 TODOLIST 생성',
-      done: true,
+      done: false,
     },
     {
       id: uuidv4(),
@@ -21,7 +21,7 @@ export const initialTodosAtom = atom({
     {
       id: uuidv4(),
       text: 'RECOIL 사용 TODOLIST 생성',
-      done: false,
+      done: true,
     },
   ],
 });
