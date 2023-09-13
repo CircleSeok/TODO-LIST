@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Todoitem from './Todoitem';
+import { useRecoilValue } from 'recoil';
+import { initialTodosAtom } from '../recoil/todoAtom';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -9,8 +11,8 @@ const TodoListBlock = styled.div`
   overflow-y: auto;
 `;
 
-export default function TodoList({ todos, setTodos }) {
-  console.log(todos);
+export default function TodoList() {
+  const todos = useRecoilValue(initialTodosAtom);
   return (
     <TodoListBlock>
       <div>
@@ -18,9 +20,9 @@ export default function TodoList({ todos, setTodos }) {
           return (
             <Todoitem
               key={todo.id}
-              todo={todo}
-              todos={todos}
-              setTodos={setTodos}
+              done={todo.done}
+              text={todo.text}
+              id={todo.id}
             />
           );
         })}

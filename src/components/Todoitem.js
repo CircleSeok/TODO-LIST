@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import { useSetRecoilState } from 'recoil';
+import { initialTodosAtom } from '../recoil/todoAtom';
 
 const Remove = styled.div`
   display: flex;
@@ -57,25 +59,26 @@ const Text = styled.div`
     `}
 `;
 
-export default function Todoitem({ todo, todos, setTodos }) {
+export default function Todoitem({ id, done, text }) {
+  const setTodos = useSetRecoilState(initialTodosAtom);
   const onSwitch = (id) => {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
       )
     );
   };
   const onRemove = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   return (
     <TodoItemBlock>
-      <CheckCircle done={todo.done} onClick={() => onSwitch(todo.id)}>
-        {todo.done && <MdDone />}
+      <CheckCircle done={done} onClick={() => onSwitch(id)}>
+        {done && <MdDone />}
       </CheckCircle>
-      <Text done={todo.done}>{todo.text}</Text>
-      <Remove onClick={() => onRemove(todo.id)}>
+      <Text done={done}>{text}</Text>
+      <Remove onClick={() => onRemove(id)}>
         <MdDelete />
       </Remove>
     </TodoItemBlock>

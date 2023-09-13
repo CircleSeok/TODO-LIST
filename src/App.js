@@ -17,7 +17,7 @@ function App() {
     <>
       <GlobalStyle />
       <TodoTemplate>
-        <TodoHead todos={todos} />
+        <TodoHead />
         <TodoList todos={todos} setTodos={setTodos} />
         <TodoCreate todos={todos} setTodos={setTodos} />
       </TodoTemplate>

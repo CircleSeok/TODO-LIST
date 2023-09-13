@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-
+import { useSetRecoilState } from 'recoil';
+import { initialTodosAtom } from '../recoil/todoAtom';
+import { v4 as uuidv4 } from 'uuid';
 const CircleButton = styled.button`
   background: #38d9a9;
   &:hover {
@@ -74,14 +76,13 @@ const Input = styled.input`
   font-size: 18px;
   box-sizing: border-box;
 `;
-export default function TodoCreate({ todos, setTodos }) {
+export default function TodoCreate() {
+  const setTodos = useSetRecoilState(initialTodosAtom);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
-  const nextId = (todos) => {
-    return todos.length + 1;
-  };
+
   const newTodo = {
-    id: nextId(todos),
+    id: uuidv4(),
     text,
     done: false,
   };
@@ -92,7 +93,7 @@ export default function TodoCreate({ todos, setTodos }) {
   const addTodo = (e) => {
     e.preventDefault();
     if (text.length !== 0) {
-      setTodos([...todos, newTodo]);
+      setTodos((prev) => [...prev, newTodo]);
     } else {
       return;
     }

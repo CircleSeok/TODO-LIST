@@ -1,5 +1,7 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { undoneTasksSelector } from '../recoil/todoAtom';
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -24,8 +26,8 @@ const TodoHeadBlock = styled.div`
     font-weight: bold;
   }
 `;
-export default function TodoHead({ todos }) {
-  const undoneTasks = todos.filter((todo) => !todo.done);
+export default function TodoHead() {
+  const undoneTasks = useRecoilValue(undoneTasksSelector);
 
   const today = new Date();
   const dateString = today.toLocaleDateString('ko-KR', {
@@ -38,7 +40,7 @@ export default function TodoHead({ todos }) {
     <TodoHeadBlock>
       <h1>{dateString}</h1>
       <div className='day'>{dayName}</div>
-      <div className='tasks-left'>할일 {undoneTasks.length}개 남음</div>
+      <div className='tasks-left'>할일 {undoneTasks}개 남음</div>
     </TodoHeadBlock>
   );
 }
